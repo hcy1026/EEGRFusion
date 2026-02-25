@@ -1,0 +1,6 @@
+{
+    "data_path": "/home/diaoyueqin/hcy/Preprocessed_data_250Hz",
+    "img_directory_training": "/home/diaoyueqin/hcy/images_set/training_images",
+    "img_directory_test": "/home/diaoyueqin/hcy/images_set/test_images",
+    "features_path":"/home/diaoyueqin/hcy/CLIP"
+}

@@ -11,10 +11,10 @@ EEGRFusion is a lightweight codebase for EEG-based **retrieval** and **reconstru
 ## Repository Structure (Key Files)
 
 - `setup.sh` — environment setup (dependencies / initialization)
-- `MAMD_retrieval.py` — train & evaluate EEG→image **retrieval**
-- `MAMD_reconstruction.py` — train EEG→image **reconstruction** model
-- `generation.ipynb` — run **image generation** / visualization
-- `reconstruction_newmetrics.ipynb` — compute **reconstruction metrics**
+- `Retrieval/MAMD_retrieval.py` — train & evaluate EEG→image **retrieval**
+- `Generation/MAMD_reconstruction.py` — train EEG→image **reconstruction** model
+- `Generation/Generation_metric_sub8_RFlow_CA_mamto.ipynb` — run **image generation** / visualization
+- `Generation/Reconstruction_newMetrics_EEGRFusion.ipynb` — compute **reconstruction metrics**
 
 ---
 

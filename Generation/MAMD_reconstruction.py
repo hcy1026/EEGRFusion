@@ -519,16 +519,12 @@ def main_train_loop(sub, current_time, eeg_model, train_dataloader, test_dataloa
         if (epoch + 1) % 5 == 0:
             # Get the current time and format it as a string (e.g., '2024-01-17_15-30-00')
             if config.insubject==True:
-                # os.makedirs(f"./models/contrast/{config.encoder_type}/{sub}/{current_time}", exist_ok=True)
-                # file_path = f"./models/contrast/{config.encoder_type}/{sub}/{current_time}/{epoch+1}.pth"
-                os.makedirs(f"/home/diaoyueqin/hcy/Generation/models/contrast/{config.encoder_type}/mamba_token/{sub}/{current_time}", exist_ok=True)
-                file_path = f"/home/diaoyueqin/hcy/Generation/models/contrast/{config.encoder_type}/mamba_token/{sub}/{current_time}/{epoch+1}.pth"
+                os.makedirs(f"./models/contrast/{config.encoder_type}/{sub}/{current_time}", exist_ok=True)
+                file_path = f"./models/contrast/{config.encoder_type}/{sub}/{current_time}/{epoch+1}.pth"
                 torch.save(eeg_model.state_dict(), file_path)
             else:
-                # os.makedirs(f"./models/contrast/across/{config.encoder_type}/{current_time}", exist_ok=True)
-                # file_path = f"./models/contrast/across/{config.encoder_type}/{current_time}/{epoch+1}.pth"
-                os.makedirs(f"/home/diaoyueqin/hcy/Generation/models/contrast/across/{config.encoder_type}/mamba_token/{current_time}", exist_ok=True)
-                file_path = f"/home/diaoyueqin/hcy/Generation/models/contrast/across/{config.encoder_type}/mamba_token/{current_time}/{epoch+1}.pth"
+                os.makedirs(f"./models/contrast/across/{config.encoder_type}/{current_time}", exist_ok=True)
+                file_path = f"./models/contrast/across/{config.encoder_type}/{current_time}/{epoch+1}.pth"
                 torch.save(eeg_model.state_dict(), file_path)
             print(f"Model saved in {file_path}!")
         train_losses.append(train_loss)

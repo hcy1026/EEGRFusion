@@ -804,7 +804,7 @@ def main():
     parser.add_argument('--data_path', type=str, default="../Preprocessed_data_250Hz",
                         help='Path to the EEG dataset')
     # parser.add_argument('--output_dir', type=str, default='../outputs/contrast', help='Directory to save output results')
-    parser.add_argument('--output_dir', type=str, default='../hcy/Retrieval/outputs/contrast',
+    parser.add_argument('--output_dir', type=str, default='../Retrieval/outputs/contrast',
                         help='Directory to save output results')
     parser.add_argument('--project', type=str, default="train_pos_img_text_rep", help='WandB project name')
     parser.add_argument('--entity', type=str, default="sustech_rethinkingbci", help='WandB entity name')

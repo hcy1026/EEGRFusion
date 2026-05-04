@@ -1,4 +1,4 @@
-name: BCI
+name: eegrfusion
 channels:
   - pytorch
   - nvidia

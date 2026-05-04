@@ -790,9 +790,9 @@ class Generator4Embeds:
 
         # ===== 设置本地模型路径（请按实际情况修改） =====
         if sdxl_dir is None:
-            sdxl_dir = "/home/diaoyueqin/hcy/models/sdxl-turbo"  # 这里改成你拷贝 SDXL 的目录
+            sdxl_dir = "../models/sdxl-turbo"  # 这里改成你拷贝 SDXL 的目录
         if ip_adapter_dir is None:
-            ip_adapter_dir = "/home/diaoyueqin/hcy/models/IP-Adapter"  # 这里改成你拷贝 IP-Adapter 的目录
+            ip_adapter_dir = "../models/IP-Adapter"  # 这里改成你拷贝 IP-Adapter 的目录
         if not os.path.isdir(sdxl_dir):
             raise FileNotFoundError(
                 f"SDXL local model dir not found: {sdxl_dir}\n"
@@ -804,8 +804,6 @@ class Generator4Embeds:
                 f"请先在有网环境下载 h94/IP-Adapter 并拷贝到该目录。"
             )
 
-        # path = '/home/weichen/.cache/huggingface/hub/models--stabilityai--sdxl-turbo/snapshots/f4b0486b498f84668e828044de1d0c8ba486e05b'
-        # path = "/home/ldy/Workspace/sdxl-turbo/f4b0486b498f84668e828044de1d0c8ba486e05b"
         # pipe = DiffusionPipeline.from_pretrained("stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16")
         pipe = DiffusionPipeline.from_pretrained(sdxl_dir, torch_dtype=torch.float16, variant="fp16", local_files_only=True)
         pipe.to(device)

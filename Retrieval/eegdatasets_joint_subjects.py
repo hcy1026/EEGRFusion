@@ -341,7 +341,6 @@ class EEGDataset():
 
 if __name__ == "__main__":
     # Instantiate the dataset and dataloader
-    # data_path = "/home/ldy/Workspace/THINGS/EEG/osfstorage-archive"  # Replace with the path to your data
     data_path = data_path
     train_dataset = EEGDataset(data_path, subjects=['sub-01'], train=True)    
     test_dataset = EEGDataset(data_path, subjects=['sub-01'], train=False)

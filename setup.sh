@@ -4,8 +4,8 @@
 
 set -e
 
-conda create -n BCI python=3.10.8 -y
-conda activate BCI
+conda create -n eegrfusion python=3.10.8 -y
+conda activate eegrfusion
 
 conda install numpy matplotlib tqdm scikit-image jupyterlab -y
 conda install -c conda-forge accelerate -y

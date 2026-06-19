@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Runtime outputs
+outputs/
+models/
+wandb/
+
+# Large local data/checkpoints
+Preprocessed_data_250Hz/
+images_set/
+*.pth
+*.pt
+*.ckpt
+*.safetensors

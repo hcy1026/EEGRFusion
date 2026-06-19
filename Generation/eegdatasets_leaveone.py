@@ -25,7 +25,7 @@ import open_clip
 import json
 
 # Load the configuration from the JSON file
-config_path = "/home/diaoyueqin/hcy/EEG_Image_decode-main/Generation/data_config.json"
+config_path = os.path.join(os.path.dirname(__file__), "data_config.json")
 with open(config_path, "r") as config_file:
     config = json.load(config_file)
 

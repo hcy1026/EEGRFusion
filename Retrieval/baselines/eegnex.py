@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-# 你原脚本里应该已经有 ClipLoss（ATMS 用的那个）
+# 你原脚本里应该已经有 ClipLoss（MAMD 用的那个）
 from Retrieval.loss import ClipLoss
 from .modules.eegnexmodule import EEGNeX as _EEGNeX
 import numpy as np
@@ -72,14 +72,14 @@ class EEGNexEncoder(nn.Module):
 
 class EEGNex(nn.Module):
     """
-    Drop-in replacement for ATMS-style EEG encoder module.
+    Drop-in replacement for MAMD-style EEG encoder module.
 
     Requirements you listed:
       - minimal change, keep forward structure simple
       - output (B, 1024)
       - must have loss + logit_scale
       - must allow count_params(eeg_model.encoder.encoder)
-      - ATMS code only changes encoder_type to "EEGNex" and runs
+      - MAMD code only changes encoder_type to "EEGNex" and runs
 
     Notes:
       - We accept (x, subject_ids) signature but ignore subject_ids.
@@ -107,7 +107,7 @@ class EEGNex(nn.Module):
             **eegnex_kwargs,
         )
 
-        # ATMS-style CLIP loss + learnable temperature
+        # MAMD-style CLIP loss + learnable temperature
         # Keep naming consistent with your existing training loop
         self.loss_func = ClipLoss()
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
@@ -117,7 +117,7 @@ class EEGNex(nn.Module):
         feats = self.encoder(x)  # (B, 1024)
 
         # Optional: if your pipeline expects normalized embeddings (often in CLIP-style)
-        # If ATMS pipeline already normalizes outside, you can remove this normalize.
+        # If MAMD pipeline already normalizes outside, you can remove this normalize.
         feats = torch.nn.functional.normalize(feats, dim=-1)
 
         return feats

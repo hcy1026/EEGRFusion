@@ -864,7 +864,7 @@ if __name__ == "__main__":
     # import os
     # os.environ['http_proxy'] = 'http://10.16.35.10:13390' 
     # os.environ['https_proxy'] = 'http://10.16.35.10:13390' 
-    # # path = '/home/weichen/.cache/huggingface/hub/models--stabilityai--sdxl-turbo/snapshots/f4b0486b498f84668e828044de1d0c8ba486e05b'
+    # # path = '../models/sdxl-turbo'
 
     # pipe = DiffusionPipeline.from_pretrained("stabilityai/sdxl-turbo", torch_dtype=torch.float16, variant="fp16")
     # # pipe = DiffusionPipeline.from_pretrained(path, torch_dtype=torch.float16, variant="fp16")
@@ -904,7 +904,7 @@ if __name__ == "__main__":
     # feature_extractor = CLIPImageProcessor()
 
     # from diffusers.utils import load_image
-    # image_prompt = load_image("/mnt/dataset0/weichen/projects/visobj/proposals/mise/data/things-images/THINGSplus/images/images_resized/apple.jpg")
+    # image_prompt = load_image("../images/generation.png")
     # display(image_prompt)
 
     # # encode image
@@ -951,7 +951,7 @@ if __name__ == "__main__":
         'ViT-H-14', pretrained='laion2b_s32b_b79k', precision='fp16', device='cuda')
 
     from diffusers.utils import load_image
-    image_prompt = load_image("/mnt/dataset0/weichen/projects/visobj/proposals/mise/data/things-images/THINGSplus/images/images_resized/apple.jpg")
+    image_prompt = load_image("../images/generation.png")
     # image_prompt = load_image("https://th.bing.com/th/id/OIP.BGo1V-YM46ZrqSo5N_edWAHaE7?rs=1&pid=ImgDetMain")
 
     display(image_prompt)

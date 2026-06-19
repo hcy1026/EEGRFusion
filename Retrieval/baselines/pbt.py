@@ -65,7 +65,7 @@ class PBTBackbone(nn.Module):
 
 class PBT(nn.Module):
     """
-    Drop-in replacement for ATMS in retrieval script.
+    Drop-in replacement for MAMD in retrieval script.
     forward(eeg_data, subject_ids) -> (B, 1024)
     Provides: loss_func, logit_scale.
     Provides: encoder and encoder.encoder (for count parameters).

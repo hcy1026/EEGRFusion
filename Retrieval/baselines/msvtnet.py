@@ -121,7 +121,7 @@ class MSVTTokenEncoder(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """
         x: [B, 63, 250]
-        return: [B, 63, 250]  (对齐 ATMS 的 Enc_eeg 输入)
+        return: [B, 63, 250]  (对齐 MAMD 的 Enc_eeg 输入)
         """
         # 1) MSVT 的多尺度卷积产生 tokens: [B, T', Dm]
         x_ = self.backbone.ensure_dim(x)  # [B,1,C,T]
@@ -154,7 +154,7 @@ class MSVTNet(nn.Module):
     作为 args.encoder_type = "MSVTNet" 的整模型：
       forward(eeg, subject_ids) -> [B, 1024]
 
-    对齐你现有 ATMS 管线：
+    对齐你现有 MAMD 管线：
       encoder -> Enc_eeg -> Proj_eeg
 
     并补齐训练/统计依赖字段：
@@ -177,11 +177,11 @@ class MSVTNet(nn.Module):
             out_dim=out_dim,
         )
 
-        # 复用你文件里已有的模块（ATMS_retrieval_metrics.py 里已经定义了）
+        # 复用你文件里已有的模块（MAMD_retrieval_metrics.py 里已经定义了）
         self.enc_eeg = Enc_eeg()                  # 输出 flatten 后默认是 1440
         self.proj_eeg = Proj_eeg(proj_dim=proj_dim)
 
-        # 训练用：和 ATMS 保持一致
+        # 训练用：和 MAMD 保持一致
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
         self.loss_func = ClipLoss()
 

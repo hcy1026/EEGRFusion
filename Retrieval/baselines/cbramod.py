@@ -31,7 +31,7 @@ if BD_CBraMod is None:
     msg += "\n".join([f"  - {a}: {b}" for a, b in _import_errors])
     raise ImportError(msg)
 
-# ClipLoss import (match your ATMS script style, with fallbacks)
+# ClipLoss import (match your MAMD script style, with fallbacks)
 ClipLoss = None
 _loss_import_errors = []
 for _path in [
@@ -96,7 +96,7 @@ def _pick_divisible_nhead(embed_dim: int, nhead: int) -> int:
 
 class CBraMod(nn.Module):
     """
-    ATMS-compatible encoder_type.
+    MAMD-compatible encoder_type.
 
     HARD constraint from your cbramodmodule.py:
       - PatchEmbedding.forward hardcodes p=101 (i.e., patch_size must be 200).
@@ -109,7 +109,7 @@ class CBraMod(nn.Module):
       1) Can be instantiated with NO args: CBraMod()
       2) Has eeg_model.encoder and eeg_model.encoder.encoder for param counting
       3) forward supports (x, subject_ids): eeg_model(eeg, subject_ids)
-      4) Exposes logit_scale and loss_func used by ATMS training loop
+      4) Exposes logit_scale and loss_func used by MAMD training loop
     """
     def __init__(
         self,
@@ -166,13 +166,13 @@ class CBraMod(nn.Module):
         # Lazy projection to out_dim (build on first forward once we know feat dim)
         self.proj = None
 
-        # must exist for ATMS loss and scaling
+        # must exist for MAMD loss and scaling
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
         self.loss_func = ClipLoss()
 
     def _align_input(self, x: torch.Tensor) -> torch.Tensor:
         """
-        Align (B, C, T) to (B, expected_channels, expected_T) WITHOUT touching ATMS code.
+        Align (B, C, T) to (B, expected_channels, expected_T) WITHOUT touching MAMD code.
         - If C != expected_channels: truncate or zero-pad channels.
         - If T != expected_T: crop or zero-pad time.
         """
@@ -226,7 +226,7 @@ class CBraMod(nn.Module):
 
     def forward(self, x: torch.Tensor, subject_ids=None):
         """
-        ATMS calls: eeg_model(eeg_data, subject_ids)
+        MAMD calls: eeg_model(eeg_data, subject_ids)
         subject_ids accepted but unused.
         x expected: (B, C, T) where T is likely 250 in your loader.
         We crop/pad to T=200 to satisfy CBraMod module constraints.

@@ -167,7 +167,7 @@ class _NeuroLMBackbone(nn.Module):
 
 class NeuroLM(nn.Module):
     """
-    Drop-in 替换 ATMS EEG encoder。
+    Drop-in 替换 MAMD EEG encoder。
     默认：
       num_channels=63, sequence_length=250, d_model=250, proj_dim=1024
     forward(x, subject_ids) -> [B,1024]

@@ -74,7 +74,7 @@ class _CTNetBackbone250(nn.Module):
 
 class CTNet(nn.Module):
     """
-    用 CTNet 做 EEG encoder，并把输出对齐到 ATMS retrieval 需要的 1024 维：
+    用 CTNet 做 EEG encoder，并把输出对齐到 MAMD retrieval 需要的 1024 维：
         (B,63,250) -> CTNet -> (B,250) -> proj -> (B,1024)
 
     兼容 train_model 的调用：
@@ -139,6 +139,6 @@ class CTNet(nn.Module):
     def forward(self, x: torch.Tensor, subject_ids=None) -> torch.Tensor:
         # x: (B, 63, 250)
         out = self.encoder(x)        # (B, 250) —— CTNet forward 路径
-        out = self.proj_eeg(out)     # (B, 1024) —— 对齐到 ATMS retrieval
+        out = self.proj_eeg(out)     # (B, 1024) —— 对齐到 MAMD retrieval
         return out
 

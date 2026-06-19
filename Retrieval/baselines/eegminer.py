@@ -3,7 +3,7 @@
 EEGMiner retrieval encoder wrapper.
 
 - Output: (B, embed_dim) e.g., (B, 1024)
-- No logit_scale, no loss here (kept in downstream ATMSRetrieval).
+- No logit_scale, no loss here (kept in downstream MAMDRetrieval).
 """
 
 from functools import partial
@@ -419,7 +419,7 @@ class EEGMinerEncoderCompat(nn.Module):
 
 class EEGMiner(nn.Module):
     """
-    Drop-in replacement for ATMS in ATMS_retrieval_metrics.py.
+    Drop-in replacement for MAMD in MAMD_retrieval_metrics.py.
 
     Must satisfy:
       - eeg_model.encoder exists
@@ -451,7 +451,7 @@ class EEGMiner(nn.Module):
 
         # ---- REQUIRED by your downstream training code ----
         # NOTE: your script multiplies logit_scale directly (no exp), and init uses log(1/0.07).
-        # Keep identical to your ATMS class for behavior parity.
+        # Keep identical to your MAMD class for behavior parity.
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
         self.loss_func = ClipLoss()
 

@@ -5,14 +5,14 @@ from Retrieval.loss import ClipLoss
 import numpy as np
 
 
-# ========================= EEGInceptionMI wrapper (ATMS-compatible) =========================
+# ========================= EEGInceptionMI wrapper (MAMD-compatible) =========================
 class IMIEncoder(nn.Module):
     """
     Thin wrapper so that:
       - `eeg_model.encoder` exists (for count_params)
       - `eeg_model.encoder.encoder` exists (the actual braindecode backbone)
       - forward(x, subject_ids) works (subject_ids ignored)
-      - output is (B, 1024) to match ATMS downstream retrieval logic.
+      - output is (B, 1024) to match MAMD downstream retrieval logic.
     """
     def __init__(self, n_chans: int = 63, n_times: int = 250, sfreq: int = 250, out_dim: int = 1024):
         super().__init__()
@@ -36,7 +36,7 @@ class IMIEncoder(nn.Module):
 
 
 class EEGInceptionMI(nn.Module):
-    """ATMS-compatible model that swaps ATMS backbone -> EEGInceptionMI, keeping loss/logit_scale interface."""
+    """MAMD-compatible model that swaps MAMD backbone -> EEGInceptionMI, keeping loss/logit_scale interface."""
     def __init__(self, n_chans: int = 63, n_times: int = 250, sfreq: int = 250, proj_dim: int = 1024):
         super().__init__()
         # Expose encoder + encoder.encoder for the existing parameter counting code:
@@ -44,12 +44,12 @@ class EEGInceptionMI(nn.Module):
         #   backbone_params  = count_params(eeg_model.encoder.encoder)
         self.encoder = IMIEncoder(n_chans=n_chans, n_times=n_times, sfreq=sfreq, out_dim=proj_dim)
 
-        # Keep ATMS retrieval training API unchanged
+        # Keep MAMD retrieval training API unchanged
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
         self.loss_func = ClipLoss()
 
     def forward(self, x: torch.Tensor, subject_ids=None) -> torch.Tensor:
-        # Return B x 1024 features (same shape as ATMS.proj_eeg output).
+        # Return B x 1024 features (same shape as MAMD.proj_eeg output).
         out = self.encoder(x, subject_ids)
         return out
 # ============================================================================================

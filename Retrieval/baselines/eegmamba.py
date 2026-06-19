@@ -93,7 +93,7 @@ def _weights_init(m):
 class EEGMambaCore(nn.Module):
     """
     这是“真正的 EEGMamba”，输出 [B,C,L,out_dim]
-    注意：为了兼容 ATMS_retrieval_metrics.py 的参数统计，这个类里要有 .encoder (MixerModel)
+    注意：为了兼容 retrieval metrics 脚本的参数统计，这个类里要有 .encoder (MixerModel)
     """
     def __init__(self, in_dim=250, out_dim=250, d_model=250, dim_feedforward=800, seq_len=1, n_layer=12):
         super().__init__()
@@ -143,11 +143,11 @@ class EEGMambaCore(nn.Module):
         return out
 
 
-# ===================== 给 ATMS_retrieval_metrics.py 用的“完全替换 ATMS”模型 =====================
+# ===================== Retrieval baseline wrapper =====================
 
-class ATMS_EEGMamba(nn.Module):
+class EEGMamba(nn.Module):
     """
-    drop-in replacement for ATMS in ATMS_retrieval_metrics.py
+    EEGMamba retrieval baseline wrapper.
 
     约束：
       - forward(x, subject_ids) -> [B,1024]
@@ -185,7 +185,7 @@ class ATMS_EEGMamba(nn.Module):
             nn.LayerNorm(proj_dim),
         )
 
-        # 这两个保持与你原 ATMS 完全一致
+        # 训练脚本需要这两个属性
         self.logit_scale = nn.Parameter(torch.ones([]) * np.log(1 / 0.07))
         self.loss_func = ClipLoss()
 
